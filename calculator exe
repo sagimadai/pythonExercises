@@ -1,0 +1,29 @@
+import sys
+
+def calculator(number1, number2, operation):
+    if operation == 'add':
+        return num1 + num2
+    elif operation == 'subtract':
+        return num1 - num2
+    elif operation == 'multiply':
+        return num1 * num2
+    elif operation == 'divide':
+        if num2 == 0:
+            return "Error: Cannot divide by zero."
+        return num1 / num2
+    else:
+        return "Error: Unsupported operation."
+
+
+def main():
+     if len(sys.argv) != 4:
+        print("Usage: python calculator.py <num1> <num2> <operation>")
+        sys.exit(1)
+
+
+        try:
+        num1 = float(sys.argv[1])  # המרת הקלט הראשון למספר
+        num2 = float(sys.argv[2])  # המרת הקלט השני למספר
+    except ValueError:
+        print("Error: Both num1 and num2 must be valid numbers.")
+        sys.exit(1)
