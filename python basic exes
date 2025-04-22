@@ -1,0 +1,17 @@
+Exercise 1
+gross_salary = float(input("enter your salary: "))
+tax_rate = 0.22
+rent = 3000
+savings_goal = 1000
+
+net_income = gross_salary * (1 - tax_rate)
+
+can_pay_rent = net_income >= rent
+can_save = net_income - rent >= savings_goal
+
+if can_pay_rent and can_save:
+    print("Rent and save!")
+elif can_pay_rent:
+    print("Just rent.")
+else:
+    print("Not enough.")
