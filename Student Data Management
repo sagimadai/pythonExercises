@@ -1,0 +1,26 @@
+students = {
+    "Alice": {
+        "age": 17,
+        "subjects": ["Math", "English", "Biology"],
+        "grades": {85, 90, 78}
+    },
+    "Bob": {
+        "age": 16,
+        "subjects": ["History", "Math", "Physics"],
+        "grades": {88, 92, 75}
+    }
+}
+
+students["Charlie"] = {
+    "age": 18,
+    "subjects": ["Chemistry", "Math"],
+    "grades": {80, 85}
+}
+
+students["Alice"]["grades"].update([95, 87])
+
+students["Bob"]["subjects"].remove("History")
+
+grades_list = list(students["Alice"]["grades"])
+average = sum(grades_list) / len(grades_list)
+print("Average grade of Alice:", average)
