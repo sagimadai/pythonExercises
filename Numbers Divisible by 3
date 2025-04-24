@@ -1,0 +1,11 @@
+start_number = int(input("Enter the start of the range: "))
+end_number = int(input("Enter the end of the range: "))
+
+count = 0
+
+for number in range(start_number, end_number):
+    if number % 3 == 0:
+      print(number)
+      count += 1
+
+print("Total of numbers divisible by 3:", count)
