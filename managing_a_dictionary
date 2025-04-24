@@ -1,0 +1,31 @@
+students = {
+    "Alice": {"grade": 85, "age": 20},
+    "Bob": {"grade": 90, "age": 22}
+}
+
+students["Charlie"] = {"grade":78, "age":21}
+
+students["Alice"]["grade"]=95
+
+del students["Bob"]
+ 
+ #############################################
+
+
+total =0
+count =0
+
+for student in students.values():
+    total += student["grade"]
+    count +=1
+
+average = total /count
+print("Average grade:", average)  
+
+highest_grade = -1
+top_student = ""
+for name, info in students.items():
+    if info["grade"] > highest_grade:
+        highest_grade = info["grade"]
+        top_student = name
+print("Top student:", top_student)
