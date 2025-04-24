@@ -1,0 +1,19 @@
+numbers = [1,2,3,4,5,6,7,8,9,10]
+
+numbers.append(11)
+
+if 5 in numbers:
+    numbers.remove(5)
+
+    
+numbers.insert(2, 3)
+
+print(numbers)
+
+total = sum(numbers)
+minimum = min(numbers)
+maximum = max(numbers)
+
+print("Sum:", total)
+print("Minimum:", minimum)
+print("Maximum:", maximum)
