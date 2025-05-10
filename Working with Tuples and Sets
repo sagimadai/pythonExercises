@@ -1,0 +1,14 @@
+numbers_set = {2,4,6,8,10}
+print(numbers_set)
+
+squares_tuple = tuple(x**2 for x in numbers_set)
+print(squares_tuple)
+
+sorted_list = sorted(list(numbers_set), reverse=True)
+print(sorted_list)
+
+intersection = numbers_set.intersection(squares_tuple)
+print(intersection)
+
+print("the length of the set is: ", len(numbers_set))
+print("the lenght of the tuple is: ", len(squares_tuple))
