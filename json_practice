@@ -1,0 +1,38 @@
+import json
+
+with open("books.json", "r") as file:
+    data = json.load(file)
+    print(data)
+    
+
+for book in data["books"]:
+    ratings = book["ratings"]
+    average_rating = sum(ratings) / len(ratings)
+    print(f"Title: {book['title']}, Average rating: {average_rating}")
+
+#יצירת ספר חדש
+new_book_title = "Mastering Python"
+new_book_author = "Alice Johnson"
+new_book_rating = [5,5,5]
+
+
+existing_titles = [book["title"].lower() for book in data["books"]]
+
+if new_book_title.lower() in existing_titles:
+    print("already exist")
+
+else:
+    
+    new_id = max(book["id"] for book in data["books"]) +1
+    new_book = {
+        "id":new_id,
+        "title":new_book_title,
+        "author":new_book_author,
+        "ratings":new_book_rating
+    }
+
+    data["books"].append(new_book)
+    print(f"The book {new_book_title} was created successfully." )
+
+    with open("books.json", "w", encoding="utf-8") as file:
+      json.dump(data, file, indent=4, ensure_ascii=False)
