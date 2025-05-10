@@ -1,0 +1,25 @@
+Part 1: Manual Evaluation (Truth Checking)
+
+1. 5 > 3 and 2 < 4      true
+2. 10 == 2 * 5 or 3 != 3  true
+3. not (7 <= 7 and 4 > 1)  False
+4. ("a" == "A").lower() and 0  False
+5. 5 < 3 or (8 / 2 == 4 and not False)  True
+
+
+Part 2: Write Boolean Expressions
+
+1. “x is between 10 and 20 inclusive.”
+10 <= x <= 20
+
+2. “s is a non‑empty string and contains the substring 'py'.”
+s and 'py' in s
+
+3. “Either n is negative or its absolute value is greater than 100.”
+n < 0 or abs(n) > 100
+
+4. “user_role is 'admin' and active is True, or superuser is True.”
+(user_role == 'admin' and active) or superuser
+
+5. “It is not the case that temperature is below 0 or above 35.”
+not (temperature < 0 or temperature > 35)
