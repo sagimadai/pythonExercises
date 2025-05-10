@@ -1,0 +1,20 @@
+students = [
+    {"name":"or", "grades": [80,90,100]},
+    {"name": "tal", "grades": [40,78,60]},
+    {"name":"david" , "grades": [80,90,20]},
+    {"name": "miri", "grades": [40,50,80]},
+    {"name": "shani", "grades": [45,90,60]}
+]
+
+def calculate_average(student):
+    if student['grades']:
+        return sum(student['grades']) / len(student['grades'])
+    else:
+        return None
+
+averages = list(map(lambda s: (s['name'], calculate_average(s)), students))
+
+print("averages:")
+for name, avg in averages:
+    if avg is not None:
+        print(f"{name}: {avg:.2f}")
