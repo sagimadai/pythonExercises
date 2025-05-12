@@ -1,0 +1,30 @@
+import json
+
+#load the json file
+with open("stock.json", "r") as file:
+    data = json.load(file)
+
+for product in data:
+    print(product["name"])
+
+for product in data:
+    print(f"Name: {product['name']},stock:{product['stock']}")
+
+for product in data:
+    if product["stock"] > 50:
+        print(product["name"])
+
+for product in data:
+    if product["stock"] < 20:
+        print(f"{product['name']} low stock")
+
+category = input("Please choose category: ")
+for product in data:
+    if product["category"].lower() == category.lower():
+        print(product["name"])
+
+minimum_price = input("Please enter minimum price: ")
+maximum_price = input("please enter maximum price: ")
+for product in data:
+    if product["price"] >= 1 and product["price"] <= 2: 
+        print(product["name"])
