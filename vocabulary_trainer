@@ -1,0 +1,152 @@
+import json
+import time
+import random
+
+with open("vocab_hebrew.json", "r", encoding="utf-8") as file:
+    data = json.load(file)
+
+#Welcome message
+print("Welcome to the vocabulary trainer !")
+
+###########Editing mode###############
+while True:
+    print("Welcome to editing mode: ")
+    print("1. Add a word")
+    print("2. Delete a word")
+    print("3. Update a word")
+    print("4. Exit editing mode")
+
+    choice = input("Please choose option from the list: 1/2/3/4: ").strip()
+
+#ADD A WORD OPTION
+    if choice == "1":
+        print("You chose to add a word")
+        unit = input("Please enter the unit name: ").strip()
+        word = input("Please enter the english word: ").strip()
+        meaning = input("Please enter the hebrew meaning: ").strip()
+
+        new_entry = {"word": word,"meaning": meaning}
+        if unit in data:
+            data[unit].append(new_entry)
+        else:
+            data[unit] = [new_entry]
+
+        print(f"{word} was added to {unit}")
+
+        with open("vocab_hebrew.json", "w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4 )
+
+#DELETE A WORD OPTION
+    elif choice == "2":
+        print("You chose to delete a word")
+        unit = input("Please enter the unit name: ").strip()
+
+        if unit not in data:
+            print("This unit doesn't exist")
+        else:
+            print("Words in this unit: ")
+            for entry in data[unit]:
+                print(f"- {entry['word']} : {entry['meaning']}")
+
+        word_to_delete = input("Enter the English word you want to delete: ").strip()
+
+        original_length = len(data[unit])
+        data[unit] = [entry for entry in data[unit] if entry["word"] != word_to_delete]
+
+        if len(data[unit]) < original_length:
+            print(f"The word '{word_to_delete}' was deleted from {unit}.")
+        else:
+            print(f"The word '{word_to_delete}' was not found in {unit}.")
+
+        with open("vocab_hebrew.json", "w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+
+#Update option
+    elif choice == "3":
+        print("You chose to update a word")
+        unit = input("Please enter the unit name: ").strip()
+
+        if unit not in data:
+            print("This unit doesn't exist.")
+        else:
+            print("Words in this unit:")
+            for entry in data[unit]:
+                print(f"- {entry['word']} : {entry['meaning']}")
+
+            word_to_update = input("Enter the English word you want to update: ").strip()
+
+            found = False
+            for entry in data[unit]:
+                if entry["word"] == word_to_update:
+                    found = True
+                    new_word = input("Enter the new English word (or press Enter to keep it the same): ").strip()
+                    new_meaning = input("Enter the new Hebrew meaning (or press Enter to keep it the same): ").strip()
+
+                    if new_word:
+                        entry["word"] = new_word
+                    if new_meaning:
+                        entry["meaning"] = new_meaning
+
+                    print(f"The word '{word_to_update}' was updated.")
+                    break
+
+            if not found:
+                print(f"The word '{word_to_update}' was not found in {unit}.")
+
+            with open("vocab_hebrew.json", "w", encoding="utf-8") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+
+#Exit option
+    elif choice == "4":
+        print("Exiting edit mode...")
+        break
+    else:
+        print("Invalid choise. please enter a number between 1-4 ")
+
+
+
+############Training Mode############
+
+import json
+import time
+import random
+
+# טען את קובץ המילים
+with open("vocab_hebrew.json", "r", encoding="utf-8") as file:
+    data = json.load(file)
+
+print("############ Training Mode ############")
+
+# בחירת יחידה
+unit = input("Enter the unit name you want to practice: ").strip()
+if unit not in data:
+    print("This unit doesn't exist.")
+    exit()
+
+# בחירת טווח מילים
+start_index = int(input("Enter the start index (1-based): ")) - 1
+end_index = int(input("Enter the end index: "))
+words = data[unit][start_index:end_index]
+
+# מילון חזרות
+repetitions = {entry["word"]: 0 for entry in words}
+max_reps = 7
+
+# בניית רשימת תרגול עם כל מילה 7 פעמים
+word_pool = []
+for entry in words:
+    word_pool.extend([entry] * max_reps)
+
+random.shuffle(word_pool)  # ערבוב סופי
+
+# תרגול
+for entry in word_pool:
+    print(f"\nWord: {entry['word']}")
+    time.sleep(2)
+    print(f"Meaning: {entry['meaning']}")
+    repetitions[entry['word']] += 1
+
+# סיכום
+print("\n### Training Summary ###")
+for word, count in repetitions.items():
+    print(f"{word} was shown {count} times.")
