@@ -107,46 +107,79 @@ while True:
 
 ############Training Mode############
 
-import json
-import time
-import random
 
-# טען את קובץ המילים
+# json file loading
 with open("vocab_hebrew.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 print("############ Training Mode ############")
 
-# בחירת יחידה
+# chose unit
 unit = input("Enter the unit name you want to practice: ").strip()
 if unit not in data:
     print("This unit doesn't exist.")
     exit()
 
-# בחירת טווח מילים
+# select words range
 start_index = int(input("Enter the start index (1-based): ")) - 1
 end_index = int(input("Enter the end index: "))
 words = data[unit][start_index:end_index]
 
-# מילון חזרות
+
 repetitions = {entry["word"]: 0 for entry in words}
 max_reps = 7
 
-# בניית רשימת תרגול עם כל מילה 7 פעמים
+
 word_pool = []
 for entry in words:
     word_pool.extend([entry] * max_reps)
 
-random.shuffle(word_pool)  # ערבוב סופי
+random.shuffle(word_pool)  
 
-# תרגול
+
 for entry in word_pool:
     print(f"\nWord: {entry['word']}")
     time.sleep(2)
     print(f"Meaning: {entry['meaning']}")
     repetitions[entry['word']] += 1
 
-# סיכום
+
 print("\n### Training Summary ###")
 for word, count in repetitions.items():
     print(f"{word} was shown {count} times.")
+
+###########Testing mode###########
+
+unit = input("Enter the unit you want to test: ").strip()
+if unit not in data:
+    print("NO AVAILABLE UNIT")
+    exit()
+
+words = data[unit]
+score = 0
+total = len(words)
+
+for entry in words:
+    print(f"what is the english word for: {entry['meaning']}?")
+    answer = input("Your answer: ").strip().lower()
+
+    if answer == entry['word'].lower():
+        print("Correct answer!")
+        score += 1
+    else:
+        print(f"Wrong answer, the correct answer is: {entry['word']}")
+
+print("Test Complete!")
+print(f"Your score: {score} out of {len(words)}")
+
+
+precentage = (score / len(words)) * 100
+
+if precentage == 100:
+    print("Excellent! You got all the answers right!")
+elif precentage >= 80:
+    print("Great job! You know most of the words.")
+elif precentage >= 50:
+    print("Not bad, but there's room for improvement.")
+else:
+    print("Keep practicing! You'll get better with time.")
